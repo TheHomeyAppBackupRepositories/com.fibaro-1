@@ -1,0 +1,6 @@
+{
+    "errors": {
+      "input": "Invalid input settings.",
+      "tiltSet": "Current selected blind does not support tilt."
+    }
+}
