@@ -6,7 +6,7 @@
   },
   "brandColor": "#000000",
   "sdk": 3,
-  "version": "3.7.1",
+  "version": "3.7.3",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local",
@@ -5834,7 +5834,8 @@
           265,
           4098,
           8194,
-          12290
+          12290,
+          16386
         ],
         "learnmode": {
           "image": "/drivers/FGBS-001/assets/learnmode.svg",
@@ -10502,7 +10503,8 @@
         "productId": [
           4096,
           8192,
-          12288
+          12288,
+          16384
         ],
         "zwaveAllianceProductId": 1050,
         "learnmode": {
@@ -20367,7 +20369,8 @@
         "productId": [
           4096,
           8192,
-          12288
+          12288,
+          16384
         ],
         "learnmode": {
           "image": "/drivers/FGWPE-101/assets/learnmode.svg",
@@ -21179,6 +21182,7 @@
           4096,
           4097,
           4099,
+          4100,
           8193,
           8195,
           12289,
