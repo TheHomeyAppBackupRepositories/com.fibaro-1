@@ -6,7 +6,7 @@
   },
   "brandColor": "#000000",
   "sdk": 3,
-  "version": "3.7.6",
+  "version": "3.7.4",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local",
@@ -6157,7 +6157,6 @@
         "productTypeId": 1282,
         "productId": [
           4096,
-          8192,
           12288
         ],
         "includeSecure": false,
@@ -17431,8 +17430,7 @@
         ],
         "productId": [
           4096,
-          12288,
-          16384
+          12288
         ],
         "requireSecure": true,
         "zwaveAllianceProductId": 2731,
