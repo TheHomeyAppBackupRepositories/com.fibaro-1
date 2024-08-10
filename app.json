@@ -6,7 +6,7 @@
   },
   "brandColor": "#000000",
   "sdk": 3,
-  "version": "3.7.4",
+  "version": "3.7.19",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local",
@@ -52,6 +52,74 @@
   "flow": {
     "triggers": [
       {
+        "title": {
+          "en": "Overcurrent is no longer detected",
+          "nl": "Overbelasting wordt niet meer gedetecteerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224"
+          }
+        ],
+        "id": "alarm_overcurrent_false"
+      },
+      {
+        "title": {
+          "en": "Overcurrent is detected",
+          "nl": "Overbelasting wordt gedetecteerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224"
+          }
+        ],
+        "id": "alarm_overcurrent_true"
+      },
+      {
+        "title": {
+          "en": "Overheating is no longer detected",
+          "nl": "Oververhitting wordt niet meer gedetecteerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224"
+          }
+        ],
+        "id": "alarm_overheating_false"
+      },
+      {
+        "title": {
+          "en": "Overheating is detected",
+          "nl": "Oververhitting wordt gedetecteerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224"
+          }
+        ],
+        "id": "alarm_overheating_true"
+      },
+      {
         "id": "windowcoverings_tilt_set_changed",
         "title": {
           "en": "Tilt has changed",
@@ -64,7 +132,7 @@
             "title": {
               "en": "Device"
             },
-            "filter": "driver_id=FGR-223"
+            "filter": "driver_id=FGR-223|FGR-224"
           }
         ],
         "tokens": [
@@ -78,6 +146,136 @@
             "example": 0.5
           }
         ]
+      },
+      {
+        "title": {
+          "en": "Switch 1",
+          "nl": "Schakelaar 1"
+        },
+        "titleFormatted": {
+          "en": "Switch 1 is [[scene]]",
+          "nl": "Schakelaar 1 is [[scene]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224&capabilities=dummy_uses_monostable_switches"
+          },
+          {
+            "name": "scene",
+            "title": {
+              "en": "Scene"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Key Pressed 1 time",
+                "label": {
+                  "en": "pressed 1x",
+                  "nl": "1x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 2 times",
+                "label": {
+                  "en": "pressed 2x",
+                  "nl": "2x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 3 times",
+                "label": {
+                  "en": "pressed 3x",
+                  "nl": "3x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Held Down",
+                "label": {
+                  "en": "held down",
+                  "nl": "lang ingedrukt"
+                }
+              },
+              {
+                "id": "Key Released",
+                "label": {
+                  "en": "released",
+                  "nl": "losgelaten"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "windowcoverings-switch-1"
+      },
+      {
+        "title": {
+          "en": "Switch 2",
+          "nl": "Schakelaar 2"
+        },
+        "titleFormatted": {
+          "en": "Switch 2 is [[scene]]",
+          "nl": "Schakelaar 2 is [[scene]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224&capabilities=dummy_uses_monostable_switches"
+          },
+          {
+            "name": "scene",
+            "title": {
+              "en": "Scene"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Key Pressed 1 time",
+                "label": {
+                  "en": "pressed 1x",
+                  "nl": "1x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 2 times",
+                "label": {
+                  "en": "pressed 2x",
+                  "nl": "2x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 3 times",
+                "label": {
+                  "en": "pressed 3x",
+                  "nl": "3x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Held Down",
+                "label": {
+                  "en": "held down",
+                  "nl": "lang ingedrukt"
+                }
+              },
+              {
+                "id": "Key Released",
+                "label": {
+                  "en": "released",
+                  "nl": "losgelaten"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "windowcoverings-switch-2"
       },
       {
         "id": "FGBS-001_i1_on",
@@ -3600,12 +3798,12 @@
       {
         "id": "FGWDSEU-221-top-switch",
         "title": {
-          "en": "Top switch",
-          "nl": "Bovenste schakelaar"
+          "en": "Button 1",
+          "nl": "Knop 1"
         },
         "titleFormatted": {
-          "en": "Top switch is [[scene]]",
-          "nl": "Bovenste schakelaar is [[scene]]"
+          "en": "Button 1 is [[scene]]",
+          "nl": "Knop 1 is [[scene]]"
         },
         "args": [
           {
@@ -3662,6 +3860,238 @@
       {
         "id": "FGWDSEU-221-bottom-switch",
         "title": {
+          "en": "Button 2",
+          "nl": "Knop 2"
+        },
+        "titleFormatted": {
+          "en": "Button 2 is [[scene]]",
+          "nl": "Knop 2 is [[scene]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          },
+          {
+            "name": "scene",
+            "title": {
+              "en": "Scene"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Key Pressed 1 time",
+                "label": {
+                  "en": "pressed 1x",
+                  "nl": "1x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 2 times",
+                "label": {
+                  "en": "pressed 2x",
+                  "nl": "2x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 3 times",
+                "label": {
+                  "en": "pressed 3x",
+                  "nl": "3x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Held Down",
+                "label": {
+                  "en": "held down",
+                  "nl": "lang ingedrukt"
+                }
+              },
+              {
+                "id": "Key Released",
+                "label": {
+                  "en": "released",
+                  "nl": "losgelaten"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-top-on",
+        "title": {
+          "en": "Output 1 turned on",
+          "nl": "Uitgang 1 aangezet"
+        },
+        "titleFormatted": {
+          "en": "Output 1 turned on",
+          "nl": "Uitgang 1 aangezet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-top-off",
+        "title": {
+          "en": "Output 1 turned off",
+          "nl": "Uitgang 1 uitgezet"
+        },
+        "titleFormatted": {
+          "en": "Output 1 turned off",
+          "nl": "Uitgang 1 uitgezet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-top-switched",
+        "title": {
+          "en": "Output 1 toggled",
+          "nl": "Uitgang 1 geschakeld"
+        },
+        "titleFormatted": {
+          "en": "Output 1 toggled",
+          "nl": "Uitgang 1 geschakeld"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-bottom-on",
+        "title": {
+          "en": "Output 2 turned on",
+          "nl": "Uitgang 2 aangezet"
+        },
+        "titleFormatted": {
+          "en": "Output 2 turned on",
+          "nl": "Uitgang 2 aangezet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-bottom-off",
+        "title": {
+          "en": "Output 2 turned off",
+          "nl": "Uitgang 2 uitgezet"
+        },
+        "titleFormatted": {
+          "en": "Output 2 turned off",
+          "nl": "Uitgang 2 uitgezet"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWDSEU-221-bottom-switched",
+        "title": {
+          "en": "Output 2 toggled",
+          "nl": "Uitgang 2 geschakeld"
+        },
+        "titleFormatted": {
+          "en": "Output 2 toggled",
+          "nl": "Uitgang 2 geschakeld"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWDSEU-221"
+          }
+        ]
+      },
+      {
+        "id": "FGWREU-111-top-switch",
+        "title": {
+          "en": "Top switch",
+          "nl": "Bovenste schakelaar"
+        },
+        "titleFormatted": {
+          "en": "Top switch is [[scene]]",
+          "nl": "Bovenste schakelaar is [[scene]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=FGWREU-111"
+          },
+          {
+            "name": "scene",
+            "title": {
+              "en": "Scene"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Key Pressed 1 time",
+                "label": {
+                  "en": "pressed 1x",
+                  "nl": "1x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 2 times",
+                "label": {
+                  "en": "pressed 2x",
+                  "nl": "2x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Pressed 3 times",
+                "label": {
+                  "en": "pressed 3x",
+                  "nl": "3x ingedrukt"
+                }
+              },
+              {
+                "id": "Key Held Down",
+                "label": {
+                  "en": "held down",
+                  "nl": "lang ingedrukt"
+                }
+              },
+              {
+                "id": "Key Released",
+                "label": {
+                  "en": "released",
+                  "nl": "losgelaten"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "FGWREU-111-bottom-switch",
+        "title": {
           "en": "Bottom switch",
           "nl": "Onderste schakelaar"
         },
@@ -3673,7 +4103,7 @@
           {
             "type": "device",
             "name": "device",
-            "filter": "driver_id=FGWDSEU-221"
+            "filter": "driver_id=FGWREU-111"
           },
           {
             "name": "scene",
@@ -3982,6 +4412,85 @@
             ]
           }
         ]
+      },
+      {
+        "title": {
+          "en": "Set tilt position",
+          "nl": "Zet kantelpositie"
+        },
+        "titleFormatted": {
+          "en": "Set tilt position to [[position]]",
+          "nl": "Zet kantelpositie naar [[position]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224&capabilities=windowcoverings_tilt_set"
+          },
+          {
+            "name": "position",
+            "title": {
+              "en": "Tilt position",
+              "nl": "Kantelpositie"
+            },
+            "type": "range",
+            "labelDecimals": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "labelMultiplier": 100,
+            "label": "%"
+          }
+        ],
+        "id": "windowcoverings_tilt_set"
+      },
+      {
+        "title": {
+          "en": "Set tilt",
+          "nl": "Zet kanteling"
+        },
+        "titleFormatted": {
+          "en": "Tilt [[state]]",
+          "nl": "Kantel [[state]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "title": {
+              "en": "Device"
+            },
+            "filter": "driver_id=FGR-224&capabilities=windowcoverings_tilt_up,windowcoverings_tilt_down"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "title": {
+              "en": "State"
+            },
+            "values": [
+              {
+                "id": "up",
+                "title": {
+                  "en": "Up",
+                  "nl": "Omhoog"
+                }
+              },
+              {
+                "id": "down",
+                "title": {
+                  "en": "Down",
+                  "nl": "Omlaag"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "windowcoverings_tilt_state"
       },
       {
         "id": "FGBS-222_o1_on",
@@ -6157,7 +6666,9 @@
         "productTypeId": 1282,
         "productId": [
           4096,
-          12288
+          8192,
+          12288,
+          45056
         ],
         "includeSecure": false,
         "learnmode": {
@@ -14288,7 +14799,8 @@
         "productId": [
           4096,
           8192,
-          12288
+          12288,
+          45056
         ],
         "learnmode": {
           "image": "/drivers/FGR-223/assets/learnmode.svg",
@@ -14509,6 +15021,362 @@
                 "max": 15
               },
               "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zwave"
+      ],
+      "name": {
+        "en": "Roller Shutter 4",
+        "nl": "Rolluik schakelaar 4"
+      },
+      "images": {
+        "xlarge": "/drivers/FGR-224/assets/images/xlarge.png",
+        "large": "/drivers/FGR-224/assets/images/large.png",
+        "small": "/drivers/FGR-224/assets/images/small.png"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "windowcoverings_tilt_up",
+        "windowcoverings_tilt_down",
+        "windowcoverings_tilt_set",
+        "alarm_overcurrent",
+        "alarm_overheating",
+        "meter_power",
+        "button.force_calibration",
+        "button.reset_meter"
+      ],
+      "capabilitiesOptions": {
+        "button.force_calibration": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Start calibration",
+            "nl": "Start kalibratie"
+          }
+        },
+        "button.reset_meter": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Reset metering",
+            "nl": "Reset verbruik"
+          }
+        }
+      },
+      "zwave": {
+        "manufacturerId": 271,
+        "productTypeId": [
+          772
+        ],
+        "productId": [
+          4096
+        ],
+        "learnmode": {
+          "image": "/drivers/FGR-224/assets/pair.svg",
+          "instruction": {
+            "en": "Press the PROG button on the device three times.",
+            "nl": "Druk driemaal op de PROG knop op het apparaat."
+          }
+        }
+      },
+      "id": "FGR-224",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Shutter settings",
+            "nl": "Rolluik instellingen"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "calibration_state",
+              "label": {
+                "en": "Calibration state",
+                "nl": "Kalibratie status"
+              },
+              "type": "label",
+              "value": ""
+            },
+            {
+              "id": "operating_mode",
+              "label": {
+                "en": "Operating mode",
+                "nl": "Operatie modus"
+              },
+              "type": "dropdown",
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Roller blind, Awning, Pergola, Curtain",
+                    "nl": "Rolluik, Zonnescherm, Pergola, Gordijn"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Venetian blind 90°",
+                    "nl": "Jaloezie 90°"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Venetian blind 180°",
+                    "nl": "Jaloezie 180°"
+                  }
+                }
+              ],
+              "zwave": {
+                "index": 151,
+                "size": 1
+              }
+            },
+            {
+              "id": "time_slat_turn",
+              "label": {
+                "en": "Slat turn time",
+                "nl": "Draaitijd lamel"
+              },
+              "hint": {
+                "en": "Time of a full turn of the slats, in increments of a tenth of a second.",
+                "nl": "Tijd om een lamel volledig te draaien, in stappen van een tiende van een seconde."
+              },
+              "type": "number",
+              "value": 1.5,
+              "attr": {
+                "min": 0,
+                "max": 6553.5
+              },
+              "units": {
+                "en": "seconds",
+                "nl": "seconden"
+              },
+              "zwave": {
+                "index": 152,
+                "size": 2
+              }
+            },
+            {
+              "id": "time_up_movement",
+              "label": {
+                "en": "Time of up movement",
+                "nl": "Beweegtijd omhoog"
+              },
+              "hint": {
+                "en": "Time to fully open, in increments of a tenth of a second.",
+                "nl": "Tijd voor volledig openen, in stappen van een tiende van een seconde."
+              },
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 0,
+                "max": 6553.5
+              },
+              "units": {
+                "en": "seconds",
+                "nl": "seconden"
+              },
+              "zwave": {
+                "index": 156,
+                "size": 2
+              }
+            },
+            {
+              "id": "time_down_movement",
+              "label": {
+                "en": "Time of down movement",
+                "nl": "Beweegtijd omlaag"
+              },
+              "hint": {
+                "en": "Time to fully close, in increments of a tenth of a second.",
+                "nl": "Tijd voor volledig sluiten, in stappen van een tiende van een seconde."
+              },
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 0,
+                "max": 6553.5
+              },
+              "units": {
+                "en": "seconds",
+                "nl": "seconden"
+              },
+              "zwave": {
+                "index": 157,
+                "size": 2
+              }
+            },
+            {
+              "id": "virtual_limit_switch",
+              "label": {
+                "en": "Virtual limit switch",
+                "nl": "Virtuele eindschakelaar"
+              },
+              "hint": {
+                "en": "A fixed minimum level for lowering, for example, to protect a flowerpot on a windowsill.",
+                "nl": "Een vast minimumniveau voor het sluiten, bijvoorbeeld om een bloempot in de vensterbank te beschermen."
+              },
+              "type": "number",
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 100
+              },
+              "units": "%",
+              "zwave": {
+                "index": 158,
+                "size": 1
+              }
+            },
+            {
+              "id": "invert_level",
+              "label": {
+                "en": "Invert motor connections",
+                "nl": "Spiegel motoraansluiting"
+              },
+              "type": "checkbox",
+              "value": false,
+              "zwave": {
+                "index": 25,
+                "size": 1
+              }
+            },
+            {
+              "id": "invert_tilt",
+              "label": {
+                "en": "Invert slat tilt",
+                "nl": "Spiegel lamellenhoek"
+              },
+              "type": "checkbox",
+              "value": false
+            },
+            {
+              "id": "favorite_level",
+              "label": {
+                "en": "Favorite level",
+                "nl": "Favoriete niveau"
+              },
+              "type": "number",
+              "value": 50,
+              "attr": {
+                "min": 0,
+                "max": 100
+              },
+              "units": "%",
+              "zwave": {
+                "index": 159,
+                "size": 1
+              }
+            },
+            {
+              "id": "favorite_tilt",
+              "label": {
+                "en": "Favorite slat tilt",
+                "nl": "Favoriete lamellenhoek"
+              },
+              "type": "number",
+              "value": 50,
+              "attr": {
+                "min": 0,
+                "max": 100
+              },
+              "units": "%",
+              "zwave": {
+                "index": 160,
+                "size": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Button settings",
+            "nl": "Schakelaar instellingen"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "switch_type",
+              "label": {
+                "en": "Switch type",
+                "nl": "Knop type"
+              },
+              "type": "dropdown",
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Monostable switches - click to move",
+                    "nl": "Impulsschakelaars - puls om te bewegen"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Monostable switches - hold to move",
+                    "nl": "Impulsschakelaars - houd ingedrukt om te bewegen"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Single monostable switch",
+                    "nl": "Enkele impulsschakelaar"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Bistable switches",
+                    "nl": "Wisselschakelaars"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "Single bistable switch",
+                    "nl": "Enkele wisselschakelaar"
+                  }
+                },
+                {
+                  "id": "5",
+                  "label": {
+                    "en": "Three-state switch",
+                    "nl": "Driestandenschakelaar"
+                  }
+                }
+              ],
+              "zwave": {
+                "index": 20,
+                "size": 1
+              }
+            },
+            {
+              "id": "invert_switches",
+              "label": {
+                "en": "Invert switches",
+                "nl": "Spiegel schakelaars"
+              },
+              "type": "checkbox",
+              "value": false,
+              "zwave": {
+                "index": 24,
+                "size": 1
+              }
             }
           ]
         }
@@ -15288,6 +16156,7 @@
         "productId": [
           4096,
           8192,
+          45056,
           12288,
           16384
         ],
@@ -17430,7 +18299,8 @@
         ],
         "productId": [
           4096,
-          12288
+          12288,
+          16384
         ],
         "requireSecure": true,
         "zwaveAllianceProductId": 2731,
@@ -19907,11 +20777,11 @@
                 "signed": false
               },
               "attr": {
-                "min": 0.01,
-                "max": 5.12,
-                "step": 0.01
+                "min": 1,
+                "max": 500,
+                "step": 1
               },
-              "value": 0.1,
+              "value": 15,
               "id": "kwh_report_threshold",
               "label": {
                 "en": "Report threshold",
@@ -20802,7 +21672,8 @@
           4097,
           8192,
           8193,
-          8195
+          8195,
+          45056
         ],
         "zwaveAllianceProductId": 3605,
         "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=MarketCertificationFiles/3605/FGWPG-111-EN-T-v0.7.pdf",
@@ -21676,13 +22547,31 @@
             "nl": "Druk driemaal op een knop op de Walli Rolluik."
           }
         },
+        "unlearnmode": {
+          "instruction": {
+            "en": "Press a button on the Walli Roller Shutter three times. If this doesn't work, reset the device to factory defaults by pressing the button 3 times, press and hold the button until the LED turns yellow, then press the button to confirm.",
+            "nl": "Druk driemaal op een knop van de Walli Rolluik. Als dit niet werkt, zet het apparaat dan terug naar de fabrieksinstellingen door 3 keer op de knop te drukken, de knop ingedrukt te houden tot de LED geel wordt, en dan nogmaals op de knop te drukken."
+          }
+        },
         "includeSecure": false,
         "associationGroupsMultiChannel": [
           1,
           2,
           3
         ],
-        "associationGroups": []
+        "associationGroups": [],
+        "defaultConfiguration": [
+          {
+            "id": 40,
+            "size": 1,
+            "value": 15
+          },
+          {
+            "id": 41,
+            "size": 1,
+            "value": 15
+          }
+        ]
       },
       "settings": [
         {
@@ -22057,5 +22946,37 @@
         }
       ]
     }
-  ]
+  ],
+  "capabilities": {
+    "alarm_overcurrent": {
+      "type": "boolean",
+      "title": {
+        "en": "Overcurrent detected",
+        "nl": "Overbelasting gedetecteerd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/power.svg"
+    },
+    "alarm_overheating": {
+      "type": "boolean",
+      "title": {
+        "en": "Overheating detected",
+        "nl": "Oververhitting gedetecteerd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/temperature.svg"
+    },
+    "dummy_uses_monostable_switches": {
+      "title": "Uses Monostable Switches",
+      "type": "boolean",
+      "getable": false,
+      "setable": false,
+      "uiComponent": null,
+      "uiQuickAction": false
+    }
+  }
 }

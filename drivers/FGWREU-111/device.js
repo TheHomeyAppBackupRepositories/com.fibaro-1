@@ -43,6 +43,58 @@ class FibaroRollerShutterDevice extends ZwaveDevice {
       }
       return Buffer.from([newValue]);
     });
+
+    this.registerReportListener(
+      'CENTRAL_SCENE',
+      'CENTRAL_SCENE_NOTIFICATION',
+      report => {
+        const buttonValue = { scene: report.Properties1['Key Attributes'] };
+
+        if (report['Scene Number'] === 1) {
+          this.homey.flow
+            .getDeviceTriggerCard('FGWREU-111-top-switch')
+            .trigger(this, null, buttonValue)
+            .catch(this.error);
+        } else if (report['Scene Number'] === 2) {
+          this.homey.flow
+            .getDeviceTriggerCard('FGWREU-111-bottom-switch')
+            .trigger(this, null, buttonValue)
+            .catch(this.error);
+        }
+      },
+    );
+
+    this.migrateSettings();
+  }
+
+  /**
+   * Migrate the current settings to the new settings to support CENTRAL_SCENE
+   * On already connected devices
+   */
+  async migrateSettings() {
+    if (this.getStoreValue('migrated') !== true) {
+      try {
+        await this.configurationSet(
+          {
+            index: 40,
+            size: 1,
+          },
+          Buffer.from([15]),
+        );
+
+        await this.configurationSet(
+          {
+            index: 41,
+            size: 1,
+          },
+          Buffer.from([15]),
+        );
+
+        await this.setStoreValue('migrated', true);
+      } catch (error) {
+        this.error('Failed to update default configuration parameters', error);
+      }
+    }
   }
 
   async ledOnRunListener(args, state) {
@@ -82,6 +134,7 @@ class FibaroRollerShutterDevice extends ZwaveDevice {
         tiltPosition = 1 - tiltPosition;
       }
 
+      this.setCapabilityValue('windowcoverings_tilt_set', tiltPosition).catch(this.error);
       return this._setCapabilityValue('windowcoverings_tilt_set', 'SWITCH_MULTILEVEL', tiltPosition);
     }
     throw new Error(this.homey.__('errors.tiltSet'));

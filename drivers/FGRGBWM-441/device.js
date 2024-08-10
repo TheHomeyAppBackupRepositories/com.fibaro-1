@@ -34,7 +34,17 @@ class FibaroRGBWControllerDevice extends ZwaveDevice {
   _registerCapabilities() {
     // Register capabilities & command classes
     this.registerCapability('onoff', 'SWITCH_MULTILEVEL', { multiChannelNodeId: 1 });
-    this.registerCapability('dim', 'SWITCH_MULTILEVEL');
+    this.registerCapability('dim', 'SWITCH_MULTILEVEL', {
+      setOpts: {
+        fn: (value, opts) => {
+          this.currentHSV.value = value;
+          if (this.getCapabilityValue('light_mode') === 'color') {
+            return this._setLightColor();
+          }
+          return this._setLightTemperature();
+        }
+      }
+    });
 
     /* eslint-disable */ //camelcase
 

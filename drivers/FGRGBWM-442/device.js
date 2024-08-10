@@ -16,6 +16,8 @@ class FibaroRGBW2Device extends ZwaveLightDevice {
     // Init for ZWave light device which handles RGBW
     await super.onNodeInit();
 
+    this.onSwitchColorReport = this._onSwitchColorReport.bind(this);
+
     // Power capabilities
     this.registerCapability('meter_power', 'METER');
     this.registerCapability('measure_power', 'METER');
@@ -93,6 +95,59 @@ class FibaroRGBW2Device extends ZwaveLightDevice {
           });
       }
     });
+
+    let isUpdating = false;
+    this.registerReportListener('SWITCH_COLOR', 'SWITCH_COLOR_REPORT', async () => {
+      if (isUpdating) return;
+      isUpdating = true;
+      await this._onSwitchColorReport();
+      isUpdating = false;
+    });
+
+    setTimeout(this.onSwitchColorReport, 2500);
+  }
+  
+  async _onSwitchColorReport() {
+    this._currentRGBWValues().then(async (colors) => {
+      const anyColorEnabled = [colors.red, colors.green, colors.blue].some(val => val > 0);
+      const whiteEnabled = colors.white > 0;
+
+      if (!anyColorEnabled && !whiteEnabled) {
+        return this.setCapabilityValue('onoff', false).catch(this.error);
+      }
+
+      this.setCapabilityValue('onoff', true).catch(this.error);
+
+      if (anyColorEnabled) {
+        return this._setColorMode(colors).catch(this.error);
+      } 
+      
+      this._setWhiteMode(colors.white / 255).catch(this.error);
+    }).catch(this.error);
+  }
+
+  async _currentRGBWValues() {
+    const red = await this.node.CommandClass.COMMAND_CLASS_SWITCH_COLOR.SWITCH_COLOR_GET({ 'Color Component ID': 0x02 }) || 0;
+    const green = await this.node.CommandClass.COMMAND_CLASS_SWITCH_COLOR.SWITCH_COLOR_GET({ 'Color Component ID': 0x03 }) || 0;
+    const blue = await this.node.CommandClass.COMMAND_CLASS_SWITCH_COLOR.SWITCH_COLOR_GET({ 'Color Component ID': 0x04 }) || 0;
+    const white = await this.node.CommandClass.COMMAND_CLASS_SWITCH_COLOR.SWITCH_COLOR_GET({ 'Color Component ID': 0x00 }) || 0;
+
+    return { red: red['Target Value'], green: green['Target Value'], blue: blue['Target Value'], white: white['Target Value'] };
+  }
+
+  async _setWhiteMode(brightness) {
+    this.setCapabilityValue('light_temperature', 1);
+    this.setCapabilityValue('dim', brightness);
+    this.setCapabilityValue('light_mode', 'temperature');
+  }
+
+  async _setColorMode(color) {
+    const hsv = Util.convertRGBToHSV(color);
+
+    this.setCapabilityValue('light_hue', hsv.hue);
+    this.setCapabilityValue('light_saturation', hsv.saturation);
+    this.setCapabilityValue('dim', hsv.value);
+    this.setCapabilityValue('light_mode', 'color');
   }
 
   _multiChannelAnalogInputParser(report, multiChannelNodeId) {

@@ -3,6 +3,7 @@
 const { ZwaveDevice } = require('homey-zwavedriver');
 
 const CONFIGURED_MULTI_CHANNEL_ASSOCIATION = 'configuredMCAssociation';
+const SWITCH_ENABLED_FLAG = 'on/enable';
 
 class FibaroWalliSwitchDevice extends ZwaveDevice {
 
@@ -21,7 +22,6 @@ class FibaroWalliSwitchDevice extends ZwaveDevice {
       await this.setStoreValue('singleSwitchMode', this.singleSwitchMode)
         .catch(this.error);
     }
-
     if (!this.hasCapability('measure_power')) await this.addCapability('measure_power').catch(this.error);
     if (!this.hasCapability('meter_power')) await this.addCapability('meter_power').catch(this.error);
 
@@ -61,6 +61,56 @@ class FibaroWalliSwitchDevice extends ZwaveDevice {
             .trigger(this, null, buttonValue)
             .catch(this.error);
         }
+      }
+    });
+
+    this.registerMultiChannelReportListener(1, 'SWITCH_BINARY', 'SWITCH_BINARY_REPORT', report => {
+      if (report.Value != null) {
+        const isEnabled = report.Value === SWITCH_ENABLED_FLAG;
+        const wasEnabled = this.getCapabilityValue('onoff.output1');
+
+        this.setCapabilityValue('onoff.output1', isEnabled).then(() => {
+          if (isEnabled) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-on')
+              .trigger(this)
+              .catch(this.error);
+          } else {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-off')
+              .trigger(this)
+              .catch(this.error);
+          }
+
+          if (isEnabled !== wasEnabled) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-switched')
+              .trigger(this)
+              .catch(this.error);
+          }
+        }).catch(this.error);
+      }
+    });
+
+    this.registerMultiChannelReportListener(2, 'SWITCH_BINARY', 'SWITCH_BINARY_REPORT', report => {
+      if (report.Value != null) {
+        const isEnabled = report.Value === SWITCH_ENABLED_FLAG;
+        const wasEnabled = this.getCapabilityValue('onoff.output2');
+
+        this.setCapabilityValue('onoff.output2', isEnabled).then(() => {
+          if (isEnabled) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-on')
+              .trigger(this)
+              .catch(this.error);
+          } else {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-off')
+              .trigger(this)
+              .catch(this.error);
+          }
+
+          if (isEnabled !== wasEnabled) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-switched')
+              .trigger(this)
+              .catch(this.error);
+          }
+        }).catch(this.error);
       }
     });
   }
@@ -123,7 +173,27 @@ class FibaroWalliSwitchDevice extends ZwaveDevice {
 
   // When the Walli is in double switch mode
   _registerDoubleModeCapabilities() {
-    this.registerCapability('onoff.output1', 'SWITCH_BINARY', { multiChannelNodeId: 1 });
+    this.registerCapability('onoff.output1', 'SWITCH_BINARY', { 
+      multiChannelNodeId: 1,
+      setOpts: {
+        fn: (value, opts) => {
+          if (value) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-on')
+              .trigger(this)
+              .catch(this.error);
+          } else {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-off')
+              .trigger(this)
+              .catch(this.error);
+          }
+
+          this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-top-switched')
+            .trigger(this)
+            .catch(this.error);
+        }
+      }
+    });
+
     this.registerCapability('measure_power.output1', 'METER', {
       multiChannelNodeId: 1,
       reportParserV3: report => this._measurePowerReportParser(1, report),
@@ -133,7 +203,27 @@ class FibaroWalliSwitchDevice extends ZwaveDevice {
       reportParserV3: report => this._meterPowerReportParser(1, report),
     });
 
-    this.registerCapability('onoff.output2', 'SWITCH_BINARY', { multiChannelNodeId: 2 });
+    this.registerCapability('onoff.output2', 'SWITCH_BINARY', { 
+      multiChannelNodeId: 2,
+      setOpts: {
+        fn: (value, opts) => {
+          if (value) {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-on')
+              .trigger(this)
+              .catch(this.error);
+          } else {
+            this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-off')
+              .trigger(this)
+              .catch(this.error);
+          }
+
+          this.homey.flow.getDeviceTriggerCard('FGWDSEU-221-bottom-switched')
+            .trigger(this)
+            .catch(this.error);
+        }
+      }
+     });
+
     this.registerCapability('measure_power.output2', 'METER', {
       multiChannelNodeId: 2,
       reportParserV3: report => this._measurePowerReportParser(2, report),

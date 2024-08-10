@@ -1,6 +1,16 @@
 {
-    "errors": {
-      "input": "Invalid input settings.",
-      "tiltSet": "Current selected blind does not support tilt."
+  "errors": {
+    "input": "Invalid input settings.",
+    "tiltSet": "Current selected blind does not support tilt."
+  },
+  "settings": {
+    "calibrationState": {
+      "uncalibrated": "Device not calibrated",
+      "auto_success": "Autocalibration successful",
+      "auto_failure": "Autocalibration failed",
+      "calibrating": "Calibrating",
+      "manual": "Manual calibration",
+      "unknown": "Unknown"
     }
+  }
 }

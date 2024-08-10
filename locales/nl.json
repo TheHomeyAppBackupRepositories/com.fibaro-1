@@ -2,5 +2,15 @@
   "errors": {
     "input": "Ongeldige ingangs instellingen.",
     "tiltSet": "Geselecteerde zonwering ondersteund geen kantelen."
+  },
+  "settings": {
+    "calibrationState": {
+      "uncalibrated": "Apparaat niet gekalibreerd",
+      "auto_success": "Autokalibratie succesvol",
+      "auto_failure": "Autokalibratie mislukt",
+      "calibrating": "Aan het kalibreren",
+      "manual": "Handmatige kalibratie",
+      "unknown": "Onbekend"
+    }
   }
 }

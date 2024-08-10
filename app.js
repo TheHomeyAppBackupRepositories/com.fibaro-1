@@ -34,6 +34,23 @@ class FibaroApp extends Homey.App {
     walliLedOffAction.registerRunListener((args, state) => {
       return args.device.ledOffRunListener(args, state);
     });
+
+    const windowCoveringsTiltSetAction = this.homey.flow.getActionCard('windowcoverings_tilt_set');
+    windowCoveringsTiltSetAction.registerRunListener(args => {
+      return args.device.triggerCapabilityListener('windowcoverings_tilt_set', args.position);
+    });
+
+    const windowCoveringsTiltStateAction = this.homey.flow.getActionCard('windowcoverings_tilt_state');
+    windowCoveringsTiltStateAction.registerRunListener(args => {
+      return args.device.triggerCapabilityListener(args.state === 'up' ? 'windowcoverings_tilt_up' : 'windowcoverings_tilt_down');
+    });
+
+    this.homey.flow.getDeviceTriggerCard('windowcoverings-switch-1')
+        .registerRunListener((args, state) => state.scene === args.scene)
+
+    this.homey.flow.getDeviceTriggerCard('windowcoverings-switch-2')
+        .registerRunListener((args, state) => state.scene === args.scene)
+
   }
 
   async _actionStartDimLevelChangeRunListener({ device, direction, duration }, state) {

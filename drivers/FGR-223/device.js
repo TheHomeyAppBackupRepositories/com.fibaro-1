@@ -142,6 +142,7 @@ class FibaroRollerShutter3Device extends ZwaveDevice {
         tiltPosition = 1 - tiltPosition;
       }
 
+      this.setCapabilityValue('windowcoverings_tilt_set', tiltPosition).catch(this.error);
       return this._setCapabilityValue('windowcoverings_tilt_set', 'SWITCH_MULTILEVEL', tiltPosition);
     }
     throw new Error(this.homey.__('errors.tiltSet'));

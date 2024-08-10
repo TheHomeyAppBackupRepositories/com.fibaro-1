@@ -114,14 +114,14 @@ class FibaroRollerShutter24Device extends ZwaveDevice {
       if (invert) {
         value = 0;
       } else {
-        value = 0.99;
+        value = 1;
       }
     }
 
     if (invert) {
-      value = (1 - value.toFixed(2)) * 100;
+      value = (1 - value.toFixed(2)) * 99;
     } else {
-      value *= 100;
+      value *= 99;
     }
 
     return {
@@ -137,9 +137,9 @@ class FibaroRollerShutter24Device extends ZwaveDevice {
       return null;
     }
     if (invert) {
-      return (100 - report['Value (Raw)'][0]) / 100;
+      return (99 - report['Value (Raw)'][0]) / 99;
     }
-    return report['Value (Raw)'][0] / 100;
+    return report['Value (Raw)'][0] / 99;
   }
 
   setTilt(value, getInvertTiltDirection) {
